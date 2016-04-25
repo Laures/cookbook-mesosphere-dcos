@@ -11,7 +11,6 @@ include_recipe 'mesosphere_dcos::default'
 
 bash 'install agent' do
   user 'root'
-  guard_interpreter :bash
   cwd '/tmp/dcos/'
   code '/tmp/dcos/dcos_install.sh slave'
   not_if { ::File.exists?('/etc/mesosphere') }

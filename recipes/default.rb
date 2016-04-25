@@ -38,11 +38,20 @@ end
 
 ### disable selinux
 # TODO this should be done using the selinux cookbook if possible
-script 'extract_module' do
+script 'selinux_permissive' do
   interpreter "bash"
   code <<-EOH
-    sed -i s/SELINUX=enforcing/SELINUX=permissive/g /etc/selinux/config &&
-    sudo groupadd nogroup &&
+    sed -i s/SELINUX=enforcing/SELINUX=permissive/g /etc/selinux/config
+    EOH
+end
+
+group 'nogroup' do
+  action :create
+end
+
+script 'disable_ipv6' do
+  interpreter "bash"
+  code <<-EOH
     sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1 &&
     sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
     EOH
