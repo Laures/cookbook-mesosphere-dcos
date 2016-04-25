@@ -56,18 +56,3 @@ script 'disable_ipv6' do
     sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
     EOH
 end
-
-### Install DCOS
-
-# get install script
-directory '/tmp/dcos' do
-  recursive true
-end
-
-remote_file '/tmp/dcos/dcos_install.sh' do
-  source "http://#{node['dcos']['bootstrap']['host']}:#{node['dcos']['bootstrap']['port']}/dcos_install.sh"
-  action :create
-  owner 'root'
-  group 'root'
-  mode  0755
-end

@@ -3,17 +3,55 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: centos-7.2
 
 suites:
+  - name: bootstrap
+    driver:
+      network:
+        - ["private_network", {ip: "33.33.33.110"}]
+    run_list:
+      - recipe[mesosphere_dcos::bootstrap]
+    attributes:
+      dcos:
+        bootstrap:
+          port: 8080
+
+  - name: master
+    driver:
+      network:
+        - ["private_network", {ip: "33.33.33.111"}]
+    run_list:
+      - recipe[mesosphere_dcos::master]
+    attributes:
+      dcos:
+        bootstrap:
+          host: 33.33.33.110
+          port: 8080
+
   - name: agent
+    driver:
+      network:
+        - ["private_network", {ip: "33.33.33.112"}]
     run_list:
       - recipe[mesosphere_dcos::agent]
     attributes:
       dcos:
         bootstrap:
-          host: 52.28.192.136
+          host: 33.33.33.110
+          port: 8080
+
+  - name: public
+    driver:
+      network:
+        - ["private_network", {ip: "33.33.33.113"}]
+    run_list:
+      - recipe[mesosphere_dcos::public]
+    attributes:
+      dcos:
+        bootstrap:
+          host: 33.33.33.110
           port: 8080

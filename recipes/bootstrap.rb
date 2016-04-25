@@ -20,7 +20,7 @@ template '/opt/dcos/genconf/config.yaml' do
   group 'root'
   mode '0755'
   variables({
-    :masters => "node['dcos']['cluster']['masters']",
+    :masters => "#{search(node['dcos']['cluster']['masters'])}",
     :clusterName => "node['dcos']['cluster']['name']",
     :bootstrapHost => "node['dcos']['bootstrap']['host']",
     :bootstrapPort => "node['dcos']['bootstrap']['port']"
