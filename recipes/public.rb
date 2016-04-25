@@ -10,7 +10,9 @@
 include_recipe 'mesosphere_dcos::default'
 
 bash 'install public_agent' do
+  user 'root'
   guard_interpreter :bash
   cwd '/tmp/dcos/'
-  code 'dcos_install.sh slave_public'
+  code '/tmp/dcos/dcos_install.sh slave_public'
+  not_if { ::File.exists?('/etc/mesosphere') }
 end

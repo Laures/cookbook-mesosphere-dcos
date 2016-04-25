@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos-7.2
+
+suites:
+  - name: agent
+    run_list:
+      - recipe[mesosphere_dcos::agent]
+    attributes:
+      dcos:
+        bootstrap:
+          host: 52.28.192.136
+          port: 8080
