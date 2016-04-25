@@ -1,0 +1,11 @@
+bootstrap_url: http://<%= @bootstrapHost %>:<%= @bootstrapPort %>
+cluster_name: '<%= @clusterName %>'
+exhibitor_storage_backend: static
+ip_detect_filename: /genconf/ip-detect
+master_list:
+<% @masters.each do |master| %>
+  - <%= master["ipaddress"] %>;
+<% end %>
+resolvers:
+- 8.8.4.4
+- 8.8.8.8
