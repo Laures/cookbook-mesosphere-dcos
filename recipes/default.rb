@@ -52,7 +52,7 @@ end
 script 'disable_ipv6' do
   interpreter "bash"
   code <<-EOH
-    sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1 &&
-    sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+    sysctl -w net.ipv6.conf.all.disable_ipv6=1 &&
+    sysctl -w net.ipv6.conf.default.disable_ipv6=1
     EOH
 end
