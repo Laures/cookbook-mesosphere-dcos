@@ -10,15 +10,6 @@ platforms:
 
 suites:
 
-  - name: blind_master
-    provisioner:
-      name: nodes
-    driver:
-      network:
-        - ["private_network", {ip: "192.168.33.109"}]
-    run_list:
-    attributes:
-
   - name: bootstrap
     provisioner:
       name: nodes
@@ -34,7 +25,7 @@ suites:
         bootstrap:
           port: 8080
         cluster:
-          masters: 'ipaddress:192.168.33.109'
+          masters: 'ipaddress:192.168.33.111'
 
   - name: master
     provisioner:

@@ -1,0 +1,25 @@
+{
+  "id": "bootstrap-centos-72",
+  "chef_environment": "_default",
+  "automatic": {
+    "ipaddress": "192.168.33.110",
+    "platform": "centos",
+    "fqdn": "bootstrap-centos-72",
+    "recipes": [
+      "mesosphere_dcos::bootstrap"
+    ]
+  },
+  "normal": {
+    "dcos": {
+      "bootstrap": {
+        "port": 8080
+      },
+      "cluster": {
+        "masters": "ipaddress:192.168.33.109"
+      }
+    }
+  },
+  "run_list": [
+    "recipe[mesosphere_dcos::bootstrap]"
+  ]
+}

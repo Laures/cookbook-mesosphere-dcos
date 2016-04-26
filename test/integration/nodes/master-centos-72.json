@@ -1,0 +1,23 @@
+{
+  "id": "master-centos-72",
+  "chef_environment": "_default",
+  "automatic": {
+    "ipaddress": "192.168.33.111",
+    "platform": "centos",
+    "fqdn": "master-centos-72",
+    "recipes": [
+      "mesosphere_dcos::master"
+    ]
+  },
+  "normal": {
+    "dcos": {
+      "bootstrap": {
+        "host": "192.168.33.110",
+        "port": 8080
+      }
+    }
+  },
+  "run_list": [
+    "recipe[mesosphere_dcos::master]"
+  ]
+}
