@@ -9,49 +9,67 @@ platforms:
   - name: centos-7.2
 
 suites:
-  - name: bootstrap
+
+  - name: blind_master
+    provisioner:
+      name: nodes
     driver:
       network:
-        - ["private_network", {ip: "33.33.33.110"}]
+        - ["private_network", {ip: "192.168.33.109"}]
+    run_list:
+    attributes:
+
+  - name: bootstrap
+    provisioner:
+      name: nodes
+    driver:
+      customize:
+        memory: 1024
+      network:
+        - ["private_network", {ip: "192.168.33.110"}]
     run_list:
       - recipe[mesosphere_dcos::bootstrap]
     attributes:
       dcos:
         bootstrap:
           port: 8080
+        cluster:
+          masters: 'ipaddress:192.168.33.109'
 
   - name: master
+    provisioner:
+      name: nodes
     driver:
       network:
-        - ["private_network", {ip: "33.33.33.111"}]
+        - ["private_network", {ip: "192.168.33.111"}]
     run_list:
       - recipe[mesosphere_dcos::master]
     attributes:
       dcos:
         bootstrap:
-          host: 33.33.33.110
+          host: 192.168.33.110
           port: 8080
 
   - name: agent
     driver:
       network:
-        - ["private_network", {ip: "33.33.33.112"}]
+        - ["private_network", {ip: "192.168.33.113"}]
     run_list:
       - recipe[mesosphere_dcos::agent]
     attributes:
       dcos:
         bootstrap:
-          host: 33.33.33.110
+          host: 192.168.33.110
           port: 8080
 
   - name: public
     driver:
       network:
-        - ["private_network", {ip: "33.33.33.113"}]
+        - ["private_network", {ip: "192.168.33.114"}]
     run_list:
       - recipe[mesosphere_dcos::public]
     attributes:
       dcos:
         bootstrap:
-          host: 33.33.33.110
+          host: 192.168.33.110
           port: 8080

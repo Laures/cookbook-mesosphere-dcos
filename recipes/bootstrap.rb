@@ -20,16 +20,16 @@ template '/opt/dcos/genconf/config.yaml' do
   group 'root'
   mode '0755'
   variables({
-    :masters => "#{search(node['dcos']['cluster']['masters'])}",
-    :clusterName => "node['dcos']['cluster']['name']",
-    :bootstrapHost => "node['dcos']['bootstrap']['host']",
-    :bootstrapPort => "node['dcos']['bootstrap']['port']"
+    :masters => search(:node, node['dcos']['cluster']['masters']),
+    :clusterName => node['dcos']['cluster']['name'],
+    :bootstrapHost => node['dcos']['bootstrap']['host'],
+    :bootstrapPort => node['dcos']['bootstrap']['port']
   })
 end
 
 # create ip-detect script
 cookbook_file '/opt/dcos/genconf/ip-detect' do
-  source "ipdetect.#{node['dcos']['cluster']['ipdetect']}""
+  source "ipdetect.#{node['dcos']['cluster']['ipdetect']}"
   action :create
 end
 
@@ -46,7 +46,7 @@ end
 bash 'generate build files' do
   user 'root'
   cwd '/opt/dcos/'
-  code '/opt/dcos/dcos_generate_config.sh'
+  code 'sudo /opt/dcos/dcos_generate_config.sh'
 end
 
 # start docker container

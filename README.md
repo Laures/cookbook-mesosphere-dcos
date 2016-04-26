@@ -42,9 +42,9 @@ Attributes
   </tr>
   <tr>
     <td><tt>['dcos']['cluster']['masters']</tt></td>
-    <td>Array of IPs</td>
-    <td>All nodes intended as Masters (default: all nodes tagged with dcos_master)</td>
-    <td><tt>search(:node, 'tags:dcos_master')</tt></td>
+    <td>Search query</td>
+    <td>Query for finding all intended master nodes (default: all nodes tagged with dcos_master)</td>
+    <td><tt>'tags:dcos_master'</tt></td>
   </tr>
   <tr>
     <td><tt>['dcos']['bootstrap']['host']</tt></td>

@@ -4,7 +4,7 @@ exhibitor_storage_backend: static
 ip_detect_filename: /genconf/ip-detect
 master_list:
 <% @masters.each do |master| %>
-  - <%= master["ipaddress"] %>;
+  - <%= master["ipaddress"] %>
 <% end %>
 resolvers:
 - 8.8.4.4
