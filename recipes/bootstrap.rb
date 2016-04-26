@@ -52,5 +52,6 @@ end
 # start docker container
 script 'disable_ipv6' do
   interpreter "bash"
+  cwd '/opt/dcos/'
   code "docker run -d -p #{node['dcos']['bootstrap']['port']}:80 -v $PWD/genconf/serve:/usr/share/nginx/html:ro nginx"
 end
