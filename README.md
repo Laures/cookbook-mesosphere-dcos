@@ -14,7 +14,38 @@ none
 Attributes
 ----------
 
-#### mesosphere_dcos::default
+#### mesosphere_dcos::default mesosphere_dcos::master mesosphere_dcos::agent and mesosphere_dcos::public
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>['dcos']['bootstrap']['host']</tt></td>
+    <td>String</td>
+    <td>host of the bootstrap node to get dcos from</td>
+    <td><tt>null</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['dcos']['bootstrap']['port']</tt></td>
+    <td>int</td>
+    <td>port of the http server on the bootstrap node</td>
+    <td><tt>80</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['dcos']['docker']['args']</tt></td>
+    <td>String</td>
+    <td>command line parameters that should be added to the doker service definition</td>
+    <td><tt>''null''</tt></td>
+  </tr>
+</table>
+
+#### mesosphere_dcos::bootstrap
+
+This recipe also supports ALL other attributes
+
 <table>
   <tr>
     <th>Key</th>
@@ -45,12 +76,6 @@ Attributes
     <td>Search query</td>
     <td>Query for finding all intended master nodes (default: all nodes tagged with dcos_master)</td>
     <td><tt>'tags:dcos_master'</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['dcos']['bootstrap']['host']</tt></td>
-    <td>String</td>
-    <td>host of the bootstrap node to get dcos from</td>
-    <td><tt>null</tt></td>
   </tr>
   <tr>
     <td><tt>['dcos']['bootstrap']['port']</tt></td>
