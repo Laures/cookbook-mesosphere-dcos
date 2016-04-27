@@ -20,7 +20,6 @@ suites:
         memory: 1024
       network:
         - ["private_network", {ip: "192.168.33.110"}]
-        - ["forwarded_port", {guest: 8080, host: 8081}]
     run_list:
       - recipe[mesosphere_dcos::bootstrap]
     attributes:
@@ -29,6 +28,8 @@ suites:
           port: 8080
         cluster:
           masters: 'ipaddress:192.168.33.111'
+        docker:
+          args: '--raw-logs --log-opt=labels=a,b'
 
   - name: master
     provisioner:
@@ -61,6 +62,7 @@ suites:
     driver:
       network:
         - ["private_network", {ip: "192.168.33.114"}]
+        - ["forwarded_port", {guest: 80, host: 8081}]
     run_list:
       - recipe[mesosphere_dcos::public]
     attributes:

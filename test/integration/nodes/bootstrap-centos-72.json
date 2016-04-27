@@ -16,6 +16,9 @@
       },
       "cluster": {
         "masters": "ipaddress:192.168.33.111"
+      },
+      "docker": {
+        "args": "--raw-logs --log-opt=labels=a,b"
       }
     }
   },

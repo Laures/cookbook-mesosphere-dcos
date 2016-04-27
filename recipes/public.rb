@@ -26,6 +26,7 @@ end
 
 bash 'install public_agent' do
   user 'root'
+  timeout 9000
   cwd '/tmp/dcos/'
   code '/tmp/dcos/dcos_install.sh slave_public'
   not_if { ::File.exists?('/etc/mesosphere') }

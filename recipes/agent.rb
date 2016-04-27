@@ -26,6 +26,7 @@ end
 
 bash 'install agent' do
   user 'root'
+  timeout 9000
   cwd '/tmp/dcos/'
   code '/tmp/dcos/dcos_install.sh slave'
   not_if { ::File.exists?('/etc/mesosphere') }

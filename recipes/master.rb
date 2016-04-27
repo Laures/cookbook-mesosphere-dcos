@@ -26,6 +26,7 @@ end
 
 bash 'install master' do
   user 'root'
+  timeout 9000
   cwd '/tmp/dcos/'
   code '/tmp/dcos/dcos_install.sh master'
   not_if { ::File.exists?('/etc/mesosphere') }

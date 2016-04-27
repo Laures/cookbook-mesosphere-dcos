@@ -21,9 +21,13 @@ directory '/etc/systemd/system/docker.service.d' do
   recursive true
 end
 
-cookbook_file '/etc/systemd/system/docker.service.d/override.conf' do
-  source 'systemd.overwride.conf'
+template '/etc/systemd/system/docker.service.d/override.conf' do
+  source 'systemd.overwride.conf.erb'
   action :create
+  variables({
+    :args => node['dcos']['docker']['args']
+  })
+
 end
 
 # install docker package and some things we will need later

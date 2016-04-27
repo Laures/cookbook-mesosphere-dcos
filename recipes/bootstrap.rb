@@ -45,12 +45,13 @@ end
 # execute dcos install script
 bash 'generate build files' do
   user 'root'
+  timeout 9000
   cwd '/opt/dcos/'
   code 'sudo /opt/dcos/dcos_generate_config.sh'
 end
 
 # start docker container
-script 'disable_ipv6' do
+script 'start docker container' do
   interpreter "bash"
   cwd '/opt/dcos/'
   code "docker run -d -p #{node['dcos']['bootstrap']['port']}:80 -v $PWD/genconf/serve:/usr/share/nginx/html:ro nginx"
