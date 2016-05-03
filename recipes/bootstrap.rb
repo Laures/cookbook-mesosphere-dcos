@@ -47,7 +47,7 @@ bash 'generate build files' do
   user 'root'
   timeout 9000
   cwd '/opt/dcos/'
-  code 'sudo /opt/dcos/dcos_generate_config.sh'
+  code '/opt/dcos/dcos_generate_config.sh'
 end
 
 # start docker container
