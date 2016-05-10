@@ -21,14 +21,20 @@ directory '/etc/systemd/system/docker.service.d' do
   recursive true
 end
 
+# create overwite service config; triger daemon-reload and restart on change
 template '/etc/systemd/system/docker.service.d/override.conf' do
   source 'systemd.overwride.conf.erb'
   action :create
   variables({
     :args => node['dcos']['docker']['args']
   })
+  notifies :run, 'execute[systemctl-daemon-reload]', :immediately
   notifies :restart, 'service[docker]'
+end
 
+execute 'systemctl-daemon-reload' do
+  command '/bin/systemctl --system daemon-reload'
+  action :nothing
 end
 
 # install docker package and some things we will need later
@@ -37,7 +43,7 @@ package ['docker-engine', 'tar', 'xz', 'unzip', 'curl', 'ipset']
 ## start docker
 service 'docker' do
   provider Chef::Provider::Service::Systemd
-  supports :status => true, :restart => true, :reload => true
+  supports :status => true, :restart => true
   action [:start, :enable]
 end
 
