@@ -35,7 +35,7 @@ end
 
 # download dcos install script
 remote_file '/opt/dcos/dcos_generate_config.sh' do
-  source "#{node['dcos']['installer']['url']}"
+  source node['dcos']['installer']['url']
   action :create
   owner 'root'
   group 'root'

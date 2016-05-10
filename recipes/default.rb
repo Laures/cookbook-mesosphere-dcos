@@ -27,6 +27,7 @@ template '/etc/systemd/system/docker.service.d/override.conf' do
   variables({
     :args => node['dcos']['docker']['args']
   })
+  notifies :restart, 'service[docker]'
 
 end
 
