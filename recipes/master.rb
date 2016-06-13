@@ -22,6 +22,7 @@ remote_file '/tmp/dcos/dcos_install.sh' do
   owner 'root'
   group 'root'
   mode  0755
+  not_if { ::File.exists?('/etc/mesosphere') }
 end
 
 bash 'install master' do

@@ -40,6 +40,7 @@ remote_file '/opt/dcos/dcos_generate_config.sh' do
   owner 'root'
   group 'root'
   mode  0755
+  not_if { ::File.exists?('/opt/dcos/dcos_generate_config.sh') }
 end
 
 # execute dcos install script
