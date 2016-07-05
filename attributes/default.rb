@@ -7,3 +7,7 @@ default['dcos']['cluster']['name'] = 'Data Center Operation System'
 default['dcos']['cluster']['masters'] = 'tags:dcos_master'
 
 default['dcos']['docker']['args'] = ''
+
+default['dcos']['customerKey'] = nil
+default['dcos']['superuser']['name'] = nil
+default['dcos']['superuser']['password'] = nil

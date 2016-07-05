@@ -9,3 +9,12 @@ master_list:
 resolvers:
 - 8.8.4.4
 - 8.8.8.8
+<% if @customerKey != nil -%>
+customer_key: <%= @customerKey %>
+<% end -%>
+<% if @superuser_password_hash  != nil -%>
+superuser_password_hash: <%= @superuser_password_hash %>
+<% end -%>
+<% if @superuser_username != nil -%>
+superuser_username: <%= @superuser %>
+<% end -%>
