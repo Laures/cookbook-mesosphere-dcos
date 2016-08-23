@@ -7,45 +7,20 @@
 # All rights reserved - Do Not Redistribute
 #
 
-### Intall docker
-# TODO this should be done using the docker cookbook if possible
-
-#add docker repository
-cookbook_file '/etc/yum.repos.d/docker.repo' do
-  source 'docker.repo'
-  action :create
+### start docker service
+docker_service 'default' do
+  host [ "tcp://#{node['ipaddress']}:2376", 'unix:///var/run/docker.sock' ]
+  daemon true
+  host 'fd://'
+  storage_driver 'overlay'
+  misc_opts node['dcos']['docker']['args']
+  install_method 'package'
+  version '1.11.2'
+  action [:create,:start]
 end
 
-# add docker to systemd
-directory '/etc/systemd/system/docker.service.d' do
-  recursive true
-end
-
-# create overwite service config; triger daemon-reload and restart on change
-template '/etc/systemd/system/docker.service.d/override.conf' do
-  source 'systemd.overwride.conf.erb'
-  action :create
-  variables({
-    :args => node['dcos']['docker']['args']
-  })
-  notifies :run, 'execute[systemctl-daemon-reload]', :immediately
-  notifies :restart, 'service[docker]'
-end
-
-execute 'systemctl-daemon-reload' do
-  command '/bin/systemctl --system daemon-reload'
-  action :nothing
-end
-
-# install docker package and some things we will need later
-package ['docker-engine', 'tar', 'xz', 'unzip', 'curl', 'ipset']
-
-## start docker
-service 'docker' do
-  provider Chef::Provider::Service::Systemd
-  supports :status => true, :restart => true
-  action [:start, :enable]
-end
+# install some things we will need later
+package ['tar', 'xz', 'unzip', 'curl', 'ipset']
 
 ### disable selinux
 # TODO this should be done using the selinux cookbook if possible
