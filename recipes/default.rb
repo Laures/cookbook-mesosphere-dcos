@@ -38,7 +38,8 @@ execute 'systemctl-daemon-reload' do
 end
 
 # install docker package and some things we will need later
-package ['docker-engine', 'tar', 'xz', 'unzip', 'curl', 'ipset']
+package 'docker-engine = 1.11.2-1.el7.centos'
+package ['tar', 'xz', 'unzip', 'curl', 'ipset']
 
 ## start docker
 service 'docker' do
