@@ -9,6 +9,9 @@ provisioner:
 
 platforms:
   - name: centos-7.2
+    driver:
+      box: mesosphere/dcos-centos-virtualbox
+      box_url: https://downloads.dcos.io/dcos-vagrant/metadata.json
 
 suites:
 
@@ -24,17 +27,25 @@ suites:
       - recipe[mesosphere_dcos::bootstrap]
     attributes:
       dcos:
+        installer:
+          url: https://downloads.dcos.io/dcos/stable/dcos_generate_config.sh
         bootstrap:
           port: 8080
         cluster:
           masters: 'ipaddress:192.168.33.111'
         docker:
           args: '--raw-logs --log-opt=labels=a,b'
+        #customerKey: enterprise-version only
+        superuser:
+          name: test
+          password: test
 
   - name: master
     provisioner:
       name: nodes
     driver:
+      customize:
+        memory: 1024
       network:
         - ["private_network", {ip: "192.168.33.111"}]
         - ["forwarded_port", {guest: 80, host: 8082}]

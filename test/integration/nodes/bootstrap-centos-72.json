@@ -12,7 +12,7 @@
   "normal": {
     "dcos": {
       "installer": {
-        "url": "https://downloads.mesosphere.com/dcos/stable/dcos_generate_config.ee.sh"
+        "url": "https://downloads.dcos.io/dcos/stable/dcos_generate_config.sh"
       },
       "bootstrap": {
         "port": 8080
@@ -23,7 +23,6 @@
       "docker": {
         "args": "--raw-logs --log-opt=labels=a,b"
       },
-      "customerKey": "40fe425f-0a0b-8478-7360-a498a070316a",
       "superuser": {
         "name": "test",
         "password": "test"
